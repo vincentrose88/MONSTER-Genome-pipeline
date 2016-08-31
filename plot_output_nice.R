@@ -6,7 +6,7 @@ outputSuffix=args[2]
 setwd(paste(pheno,'/output/',sep=''))
 
 monsterFile <- dir()[grep(paste(pheno,outputSiffux,'*_monster.out',sep='.'),dir())]
-monster <- read.table(monsterFile),h=T,as.is=T)
+monster <- read.table(monsterFile,h=T,as.is=T)
 for(gene in monster$SNP_set_ID){
   tryCatch({
     assoc <- read.table(dir()[dir() %in% paste(gene,'.assoc',sep='')],h=T,as.is=T)
