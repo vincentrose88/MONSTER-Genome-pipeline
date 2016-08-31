@@ -8,3 +8,6 @@ do
     cat $inputfile | awk -v "trait=$i" '$2==trait {print $1}'| sort -u > $i/$i.genes
 done
 echo $traits | tr ' ' '\n' > phenotypes_to_test
+chmod +x *.sh
+chmod +x *.py
+chmod +x *.R
