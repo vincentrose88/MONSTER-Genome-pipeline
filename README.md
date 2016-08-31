@@ -32,7 +32,7 @@ This will run the actual MONSTER script on the extracted regions from the previo
 ### Run `while read i; do 1x/1x_single_snp_assoc/extract_regions.sh $i; done < phenotypes_to_test` 
 Loops through each single point association (SPA) file (manually linked in 1x_single_snp_assoc folder) and extract the regions used by MONSTER
 
-### Run `while read i; do ./plot_output_nice.R $i; done < phenotypes_to_test` 
+### Run `while read i; do ./plot_output_nice.R $i firstRun; done < phenotypes_to_test` 
 This plots the SPA regions, marks the SNPs used by MONSTER, notes the p-value from the MONSTER analyse, and saves the SPA results for the used SNPs#Date: 31/8/2016-25/8/16 (V.1.3)
 
 
