@@ -7,9 +7,8 @@ No single point association (SPA) file found for phenotype doesn't return any ni
 Extractor not returning any SPA variants in given region: Extractor returns empty files, which the plotter knowns to ignore. Not an elegant solution.
 Daniels wrapper script not able to parallized - gives weird error of files not being there or individuals missing (!?)
 Returns `broken pipe` even when working
-** Coverage of variants between 1x and 15x is strange **
 ** Gene-names with with dashes are ignored in MONSTER output, but not otherwise - this tricks the plotter especially**
-
+** Double gene names in MONSTER output - different (+/- 1) N(ind) yields very different results **
 
 
 ### Note on parallelization on SANGER FARM:
@@ -39,7 +38,7 @@ This will run Daniels perl MONSTER script, extract the corresponding regions wit
 ### Run `while read i; do ./MONSTER_run_wrapper.sh $i firstRun; done < phenotypes_to_test` 
 This will run the actual MONSTER script on the extracted regions from the previous step (firstRun is the same outputname as before)
 
-### Run `while read i; do 1x/1x_single_snp_assoc/extract_regions.sh $i; done < phenotypes_to_test` 
+### Run `while read i; do 1x_single_snp_assoc/extract_regions.sh $i firstRun; done < phenotypes_to_test` 
 Loops through each single point association (SPA) file (manually linked in 1x_single_snp_assoc folder) and extract the regions used by MONSTER
 
 ### Run `while read i; do ./plot_output_nice.R $i firstRun; done < phenotypes_to_test` 

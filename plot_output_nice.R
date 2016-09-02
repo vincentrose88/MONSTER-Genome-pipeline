@@ -3,7 +3,7 @@ args <-commandArgs(TRUE)
 
 pheno=args[1]
 outputSuffix=args[2]
-setwd(paste(pheno,'/output/',sep=''))
+setwd(paste(pheno,outputSuffix,'output/',sep='/'))
 
 monsterFile <- dir()[grep(paste(pheno,outputSuffix,'*.monster.out',sep='.'),dir())]
 monster <- read.table(monsterFile,h=T,as.is=T)
@@ -17,7 +17,7 @@ for(gene in monster$SNP_set_ID){
     assoc$type <- rep('rare',nrow(assoc))
     assoc[assoc$af>=0.05,'type'] <- 'common'
     
-    png(paste(gene,pheno,outputSuffix,'png',sep='.'),width=1000,height=800)
+    png(paste('plots',paste(gene,pheno,outputSuffix,'png',sep='.'),sep='/'),width=1000,height=800)
     plot(assoc$ps,assoc$log10P,pch=19,xlab=paste('chr',(assoc$chr)[1],':pos'),ylab='-log10(P)',
          col=ifelse(assoc$type=='rare','red','black'),
          main=paste(gene,', P(monster)=',monster[monster$SNP_set_ID==gene,'p_MONSTER'],sep=''))
