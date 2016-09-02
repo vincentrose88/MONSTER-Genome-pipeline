@@ -12,7 +12,7 @@ Returns `broken pipe` even when working
 
 
 ### Note on parallelization on SANGER FARM:
-Besides the `MONSTER_prepare_wrapper.sh` script and setup.sh script, everything can be parallelized: Just echo the below commands (inside while loop) and direct it to bsub_jobarray_FARM_specific.py (see `./bsub_jobarray_FARM_specific.py -h` for how to use this).
+Besides the MONSTER scripts and the setup.sh script, everything can be parallelized: Just echo the below commands (inside while loop) and direct it to bsub_jobarray_FARM_specific.py (see `./bsub_jobarray_FARM_specific.py -h` for how to use this).
 
 Ex. `while read i; do echo -e "MONSTER_run_wrapper.sh $i"; done < phenotypes_to_test | bsub_jobarray_FARM_specific.py -n prepareMonster -m 5g`
 
@@ -36,6 +36,7 @@ The firstRun is the output_suffix. Can be modified to fit the specifics needs (M
 This will run Daniels perl MONSTER script, extract the corresponding regions with default exclusions and features (MAF<0.05, exons)
 
 ### Run `while read i; do ./MONSTER_run_wrapper.sh $i firstRun; done < phenotypes_to_test` 
+**NB can't be parallelized in current form**
 This will run the actual MONSTER script on the extracted regions from the previous step (firstRun is the same outputname as before)
 
 ### Run `while read i; do 1x_single_snp_assoc/extract_regions.sh $i firstRun; done < phenotypes_to_test` 
