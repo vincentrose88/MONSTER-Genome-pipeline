@@ -3,12 +3,12 @@ Mini pipeline for running genome wide moster burden test on top of Daniels MONST
 **NB: Pipeline is dependent on Daniel Suveges MONSTER wrapper script, and on MONSTER itself.**
 
 ### Known issues
-No single point association (SPA) file found for phenotype doesn't return any nice errors
-Extractor not returning any SPA variants in given region: Extractor returns empty files, which the plotter knowns to ignore. Not an elegant solution.
-Daniels wrapper script not able to parallized - gives weird error of files not being there or individuals missing (!?)
-Returns `broken pipe` even when working
-** Gene-names with with dashes are ignored in MONSTER output, but not otherwise - this tricks the plotter especially**
-** Double gene names in MONSTER output - different (+/- 1) N(ind) yields very different results **
+#### No single point association (SPA) file found for phenotype doesn't return any nice errors
+#### Extractor not returning any SPA variants in given region: Extractor returns empty files, which the plotter knowns to ignore. Not an elegant solution.
+#### Daniels wrapper script not able to parallized - gives weird error of files not being there or individuals missing (!?)
+#### Returns `broken pipe` even when working
+### Gene-names with with dashes are ignored in MONSTER output, but not otherwise - this tricks the plotter especially**
+### Double gene names in MONSTER output - different (+/- 1) N(ind) yields very different results **
 
 
 ### Note on parallelization on SANGER FARM:
