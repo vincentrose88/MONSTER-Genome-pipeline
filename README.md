@@ -7,8 +7,8 @@ Mini pipeline for running genome wide moster burden test on top of Daniels MONST
 #### Extractor not returning any SPA variants in given region: Extractor returns empty files, which the plotter knowns to ignore. Not an elegant solution.
 #### Daniels wrapper script not able to parallized - gives weird error of files not being there or individuals missing (!?)
 #### Returns `broken pipe` even when working
-### Gene-names with with dashes are ignored in MONSTER output, but not otherwise - this tricks the plotter especially**
-### Double gene names in MONSTER output - different (+/- 1) N(ind) yields very different results **
+### Gene-names with with dashes are ignored in MONSTER output, but not otherwise - this tricks the plotter especially
+### Double gene names in MONSTER output - different (+/- 1) N(ind) yields very different results
 
 
 ### Note on parallelization on SANGER FARM:
@@ -29,9 +29,9 @@ It also create `phenotypes_to_test` file which we will use to feed the other scr
 
 **NB: You need to manually link your phenotypes and single point association files in the corresponding folders. Names does matter, so check the scripts. Don't run blindly**
 
-### Run `while read i; do ./MONSTER_prepare_wrapper.sh $i firstRun; done < phenotypes_to_test` 
+### Run `while read i; do ./MONSTER_prepare_wrapper.sh $i firstRun exon 0.05; done < phenotypes_to_test` 
 
-The firstRun is the output_suffix. Can be modified to fit the specifics needs (MAF, MAC, features to include)
+The firstRun is the output_suffix, exon and 0.05 is the feature to include and the MAF cutoff, respectively. 
 **NB can't be parallelized in current form**
 This will run Daniels perl MONSTER script, extract the corresponding regions with default exclusions and features (MAF<0.05, exons)
 
