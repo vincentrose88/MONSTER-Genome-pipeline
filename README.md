@@ -6,11 +6,9 @@ Mini pipeline for running genome wide moster burden test on top of Daniels MONST
 #### No single point association (SPA) file found for phenotype doesn't return any nice errors
 #### Extractor not returning any SPA variants in given region: Extractor returns empty files, which the plotter knowns to ignore. Not an elegant solution.
 #### Returns `broken pipe` even when working
-### Gene-names with with dashes are ignored in MONSTER output, but not otherwise - this tricks the plotter especially
-
 
 ### Note on parallelization on SANGER FARM:
-Besides the MONSTER scripts and the setup.sh script, everything can be parallelized: Just echo the below commands (inside while loop) and direct it to bsub_jobarray_FARM_specific.py (see `./bsub_jobarray_FARM_specific.py -h` for how to use this).
+Besides the setup.sh script, everything can be parallelized: Just echo the below commands (inside while loop) and direct it to bsub_jobarray_FARM_specific.py (see `./bsub_jobarray_FARM_specific.py -h` for how to use this).
 
 Ex. `while read i; do echo -e "MONSTER_run_wrapper.sh $i"; done < phenotypes_to_test | bsub_jobarray_FARM_specific.py -n prepareMonster -m 5g`
 
@@ -30,11 +28,9 @@ It also create `phenotypes_to_test` file which we will use to feed the other scr
 ### Run `while read i; do ./MONSTER_prepare_wrapper.sh $i firstRun exon 0.05; done < phenotypes_to_test` 
 
 The firstRun is the output_suffix, exon and 0.05 is the feature to include and the MAF cutoff, respectively. 
-**NB can't be parallelized in current form**
 This will run Daniels perl MONSTER script, extract the corresponding regions with default exclusions and features (MAF<0.05, exons)
 
 ### Run `while read i; do ./MONSTER_run_wrapper.sh $i firstRun; done < phenotypes_to_test` 
-**NB can't be parallelized in current form**
 This will run the actual MONSTER script on the extracted regions from the previous step (firstRun is the same outputname as before)
 
 ### Run `while read i; do 1x_single_snp_assoc/extract_regions.sh $i firstRun; done < phenotypes_to_test` 
