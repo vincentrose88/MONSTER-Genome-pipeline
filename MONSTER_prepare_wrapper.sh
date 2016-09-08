@@ -1,3 +1,7 @@
 #!/bin/bash
-mkdir -p $1/$2/output/plots
-cd $1/$2 && perl /nfs/team144/ds26/burden_testing/scripts/burden_get_regions_v2.2.pl -i ../$1.genes -o $1.$2 -G $3 -MAF $4 -v
+pheno=$1; shift
+outputSuffix=$1; shift
+otherArguments=$@
+mkdir -p $pheno/$outputSuffix/output/plots
+
+cd $pheno/$outputSuffix && perl /nfs/team144/ds26/burden_testing/scripts/burden_get_regions_v2.2.pl -i ../$pheno.genes -o $pheno.$outputSuffix -v $otherArguments
