@@ -7,7 +7,7 @@ do
     mkdir $i/
     cat $inputfile | awk -v "trait=$i" '$2==trait {print $1}'| sort -u > $i/$i.genes
 done
-echo $traits | tr ' ' '\n' > phenotypes_to_test
+echo -e "$traits firstRun -g exon -MAF 0.05 -s Eigen -b 1" | tr ' ' '\n' > firstRun.parameters
 chmod +x *.sh
 chmod +x *.py
 chmod +x *.R
