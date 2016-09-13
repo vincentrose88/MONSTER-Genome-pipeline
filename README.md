@@ -31,6 +31,12 @@ It also create `firstRun.par` file which we will use to feed the other scripts i
 
 This will run Daniels perl MONSTER script, extract the corresponding regions and then run the actual MONSTER script on the extracted regions
 
+### Collect results
+`./collect_results.sh firstRun.par`
+
+Collects ALL the analyses in first Run and creates a combined results script, with info on test, trait and MONSTER output. **Can't be parallelized**
+
+
 ### Extract single point association
 
 `while read i; do 1x_single_snp_assoc/extract_regions.sh $i firstRun; done < <(awk '{print $1,$2,$3}' firstRun.par)` 
