@@ -1,7 +1,7 @@
 #!/bin/bash
 inputfile=$1
 
-inputTraitGene=`cat $inputfile | awk '$2!="Trait" || '$1!="Gene" {print $0}' | sort -u`
+inputTraitGene=`cat $inputfile | awk '$2!="Trait" || $1!="Gene" {print $0}' | sort -u`
 for i in $inputTraitGene;
     do 
     gene=`awk '{print $1}'`
