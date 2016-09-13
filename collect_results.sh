@@ -8,11 +8,11 @@ do
 
     if [ $count -eq 0 ] #Create folder and adds header to results file
 	then
-	echo -e 'TestName\tTrait\tGene\tN.Ind\tN.SNPs\tRho\tP' > results.merged
+	echo -e 'TestName\tTrait\tGene\tN.Ind\tN.SNPs\tRho\tP' > $1.results.merged
 	count=$(( $count + 1))
-	awk -v "TestName=$outputSuffix" -v "pheno=$pheno" 'NR>1 {print TestName"\t"pheno"\t"$0}' $pheno/$gene/$outputSuffix/output/$pheno.$gene.monster.out >> results.merged
+	awk -v "TestName=$outputSuffix" -v "pheno=$pheno" 'NR>1 {print TestName"\t"pheno"\t"$0}' $pheno/$gene/$outputSuffix/output/$pheno.$gene.monster.out >> $1.results.merged
     else
-	awk -v "TestName=$outputSuffix" -v "pheno=$pheno" 'NR>1 {print TestName"\t"pheno"\t"$0}' $pheno/$gene/$outputSuffix/output/$pheno.$gene.monster.out >> results.merged    	
+	awk -v "TestName=$outputSuffix" -v "pheno=$pheno" 'NR>1 {print TestName"\t"pheno"\t"$0}' $pheno/$gene/$outputSuffix/output/$pheno.$gene.monster.out >> $1.results.merged    	
     fi
 
 done < $1
