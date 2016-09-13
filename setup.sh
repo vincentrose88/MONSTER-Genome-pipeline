@@ -9,7 +9,6 @@ for i in $inputTraitGene;
     mkdir -p $trait/$gene
     echo -e "$gene" > $trait/$gene/$trait.$gene
     echo -e "$trait $gene exon.MAF0.05.EigenWeights.b1 -g exon -MAF 0.05 -s Eigen -b 1" >> firstRun.parameters
-    done
 done
 
 chmod +x *.sh
