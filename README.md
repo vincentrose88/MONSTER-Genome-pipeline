@@ -14,30 +14,35 @@ Ex. `while read i; do echo -e "MONSTER_run_wrapper.sh $i"; done < phenotypes_to_
 
 ## How to run
 
-### Input needed: List of genes and associated traits, tab-seperated
+### Input needed: List of genes and associated traits, tab-seperated or white space-seperated, **no header**
 See `gene_traits_all` as example
 
 ### Run `setup.sh` with gene-trait list as only argument
 
-This create folders and subfolders for each phenotype to be tested and adds a list of genes associated with each phenotype in corresponding folder
+This create folders and subfolders for each phenotype and each gene to be tested
 
-It also create `phenotypes_to_test` file which we will use to feed the other scripts in the pipeline
+It also create `firstRun.par` file which we will use to feed the other scripts in the pipeline (exon, maf=5%, Eigen weights, b=1)
 
 **NB: You need to manually link your phenotypes and single point association files in the corresponding folders. Names does matter, so check the scripts. Don't run blindly**
 
-### Run `while read i; do ./MONSTER_prepare_wrapper.sh $i firstRun exon 0.05; done < phenotypes_to_test` 
+### Run the MONSTER main script (Prepare and Run)
 
-The firstRun is the output_suffix, exon and 0.05 is the feature to include and the MAF cutoff, respectively. 
-This will run Daniels perl MONSTER script, extract the corresponding regions with default exclusions and features (MAF<0.05, exons)
+`while read par; do ./MONSTER_prepare_and_run_wrapper.sh $par; done < firstRun.par` 
 
-### Run `while read i; do ./MONSTER_run_wrapper.sh $i firstRun; done < phenotypes_to_test` 
-This will run the actual MONSTER script on the extracted regions from the previous step (firstRun is the same outputname as before)
+This will run Daniels perl MONSTER script, extract the corresponding regions and then run the actual MONSTER script on the extracted regions
 
-### Run `while read i; do 1x_single_snp_assoc/extract_regions.sh $i firstRun; done < phenotypes_to_test` 
-Loops through each single point association (SPA) file (manually linked in 1x_single_snp_assoc folder) and extract the regions used by MONSTER
+### Extract single point association
 
-### Run `while read i; do ./plot_output_nice.R $i firstRun; done < phenotypes_to_test` 
-This plots the SPA regions, marks the SNPs used by MONSTER, notes the p-value from the MONSTER analyse, and saves the SPA results for the used SNPs#Date: 31/8/2016-25/8/16 (V.1.3)
+`while read i; do 1x_single_snp_assoc/extract_regions.sh $i firstRun; done < <(awk '{print $1,$2,$3}' firstRun.par)` 
+
+**NB: This is a slow process - only do for selected genes**. Loops through each single point association (SPA) file (manually linked in 1x_single_snp_assoc folder) and extract the regions used by MONSTER. 
+
+**NB: The $1 $2 and $3 arguments in the awk-command correspond to phenotype, gene and outputSuffix, respectively.**
+
+### Plots single point association
+
+`while read i; do ./plot_output_nice.R $i firstRun; done < <(awk '{print $1,$2,$3}' firstRun.par)` 
+This plots the SPA regions, marks the SNPs used by MONSTER, notes the p-value from the MONSTER analyse, and saves the SPA results for the used SNPs
 
 
 # Old manual version control mini-pipeline overview

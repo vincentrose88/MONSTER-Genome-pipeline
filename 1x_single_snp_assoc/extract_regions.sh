@@ -1,5 +1,5 @@
 #!/bin/bash
-for i in $1/$2/*_GRCh37.bed;
+for i in $1/$2/$3/*_GRCh37.bed;
 do
     phenotype=`basename $1`
     gene=`basename $i | cut -d'_' -f1`
