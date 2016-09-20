@@ -7,7 +7,7 @@ while read i;
     trait=`awk '{print $2}' <(echo $i)`
     mkdir -p $trait/$gene
     echo -e "$gene" > $trait/$gene/$trait.$gene
-    echo -e "$trait $gene exon.MAF0.05.EigenWeights.b1 -g exon -MAF 0.05 -s Eigen -b 1" >> firstRun.par
+    echo -e "$trait $gene exon.MAF0.05.mSNP0.01 -G exon -MAF 0.05 -m 0.01" >> firstRun.par
 done < $inputfile
 
 chmod +x *.sh
