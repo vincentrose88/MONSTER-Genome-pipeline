@@ -13,7 +13,7 @@ Ex. `while read i; do echo -e "MONSTER_run_wrapper.sh $i"; done < phenotypes_to_
 ### Input needed: List of pairs of traits and genes, tab-seperated or white space-seperated, **no header**
 See `traits_genes_UK10K_candidates` as example
 
-### Run `setup.sh` with gene-trait list as only argument
+### Run `setup.sh` with the traits_genes_UK10K_candidates list as only argument
 
 This create folders and subfolders for each phenotype and each gene to be tested
 
