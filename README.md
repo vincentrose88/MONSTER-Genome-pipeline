@@ -10,14 +10,16 @@ Besides the setup.sh script, everything can be parallelized: Just echo the below
 Ex. `while read i; do echo -e "MONSTER_run_wrapper.sh $i"; done < phenotypes_to_test | bsub_jobarray_FARM_specific.py -n prepareMonster -m 5g`
 
 
-### Input needed: List of genes and associated traits, tab-seperated or white space-seperated, **no header**
-See `gene_traits_all` as example
+### Input needed: List of pairs of traits and genes, tab-seperated or white space-seperated, **no header**
+See `traits_genes_UK10K_candidates` as example
 
 ### Run `setup.sh` with gene-trait list as only argument
 
 This create folders and subfolders for each phenotype and each gene to be tested
 
 It also create `firstRun.par` file which we will use to feed the other scripts in the pipeline (exon, maf=5%, Eigen weights, b=1)
+
+**The order is important: It is always: Trait Gene Outputsuffix OtherArguments**
 
 **NB: You need to manually link your phenotypes and single point association files in the corresponding folders. Names does matter, so check the scripts. Don't run blindly**
 
