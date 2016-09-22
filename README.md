@@ -25,20 +25,29 @@ It also create `firstRun.par` file which we will use to feed the other scripts i
 
 **NB: You need to manually link your phenotypes and single point association files in the corresponding folders. Names does matter, so check the scripts. Don't run blindly**
 
-### Run the MONSTER main script (Prepare and Run)
+### Run the MONSTER prepare script
 
-`while read par; do ./MONSTER_prepare_and_run_wrapper.sh $par; done < firstRun.par` 
+`while read par; do ./MONSTER_prepare.sh $par; done < firstRun.par` 
 
-This will run Daniels perl MONSTER script, extract the corresponding regions and then run the actual MONSTER script on the extracted regions
+This will run Daniels perl-script, which extracts the corresponding regions.
+
+### Run MONSTER run script
+`while read par; do ./MONSTER_run.sh $par; done < firstRun.par`
+
+This will run Daniels MONSTER wrapper, which runs on the extracted regions from the previous step.
 
 ### Collect results
 `./collect_results.sh firstRun.par`
 
-Collects ALL the analyses in first Run and creates a combined results script, with info on test, trait and MONSTER output. **Can't be parallelized**
+Collects ALL the analyses in first Run and creates a combined results script (firsteRun.par.results.merged), with info on test, trait and MONSTER output. **Can't be parallelized**
 
+
+# Misc. scripts
+### Plot test restults (multiple parameters on the same genes) - example script which needs to be changed to your needs:
+./plot_eigenTest.R
 
 ### Extract single point association
-
+**NB: Currently not updated to use SNP_info instead of BED-files**
 `while read i; do 1x_single_snp_assoc/extract_regions.sh $i firstRun; done < <(awk '{print $1,$2,$3}' firstRun.par)` 
 
 **NB: This is a slow process - only do for selected genes**. Loops through each single point association (SPA) file (manually linked in 1x_single_snp_assoc folder) and extract the regions used by MONSTER. 
@@ -46,7 +55,7 @@ Collects ALL the analyses in first Run and creates a combined results script, wi
 **NB: The $1 $2 and $3 arguments in the awk-command correspond to phenotype, gene and outputSuffix, respectively.**
 
 ### Plots single point association
-
+**NB: Currently not updated to use SNP_info instead of BED-files**
 `while read i; do ./plot_output_nice.R $i firstRun; done < <(awk '{print $1,$2,$3}' firstRun.par)` 
 This plots the SPA regions, marks the SNPs used by MONSTER, notes the p-value from the MONSTER analyse, and saves the SPA results for the used SNPs
 
