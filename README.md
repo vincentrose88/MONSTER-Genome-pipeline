@@ -2,17 +2,13 @@
 Mini pipeline for running genome wide moster burden test on top of Daniels MONSTER wrapper scripts (the real MVP)
 **NB: Pipeline is dependent on Daniel Suveges MONSTER wrapper script, and on MONSTER itself.**
 
-### Known issues
-#### No single point association (SPA) file found for phenotype doesn't return any nice errors
-#### Extractor not returning any SPA variants in given region: Extractor returns empty files, which the plotter knowns to ignore. Not an elegant solution.
-#### Returns `broken pipe` even when working
+## How to run
 
 ### Note on parallelization on SANGER FARM:
 Besides the setup.sh script, everything can be parallelized: Just echo the below commands (inside while loop) and direct it to bsub_jobarray_FARM_specific.py (see `./bsub_jobarray_FARM_specific.py -h` for how to use this).
 
 Ex. `while read i; do echo -e "MONSTER_run_wrapper.sh $i"; done < phenotypes_to_test | bsub_jobarray_FARM_specific.py -n prepareMonster -m 5g`
 
-## How to run
 
 ### Input needed: List of genes and associated traits, tab-seperated or white space-seperated, **no header**
 See `gene_traits_all` as example
@@ -58,6 +54,12 @@ Collects ALL the analyses in first Run and creates a combined results script (fi
 **NB: Currently not updated to use SNP_info instead of BED-files**
 `while read i; do ./plot_output_nice.R $i firstRun; done < <(awk '{print $1,$2,$3}' firstRun.par)` 
 This plots the SPA regions, marks the SNPs used by MONSTER, notes the p-value from the MONSTER analyse, and saves the SPA results for the used SNPs
+
+
+### Known issues
+#### No single point association (SPA) file found for phenotype doesn't return any nice errors
+#### Extractor not returning any SPA variants in given region: Extractor returns empty files, which the plotter knowns to ignore. Not an elegant solution.
+#### Returns `broken pipe` even when working
 
 
 # Old manual version control mini-pipeline overview
